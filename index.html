@@ -1,12 +1,201 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Xidito.com</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xidito | El Ecosistema</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter (Tipografía limpia, moderna y geométrica tipo Tesla) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Ocultar la barra de scroll para un look más limpio */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        /* Sombra de texto suave para asegurar que se lea sobre cualquier fondo */
+        .text-shadow {
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Degradado en la parte inferior para que los botones destaquen */
+        .bottom-gradient {
+            background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%);
+        }
+    </style>
 </head>
-<body>
-  <h1>Bienvenido a Xidito.com</h1>
-  <p>Sitio en construccion.</p>
+
+<body class="bg-black text-white font-sans antialiased h-screen w-full overflow-hidden relative">
+
+    <!-- Header Fijo y Transparente -->
+    <header class="fixed top-0 w-full z-50 transition-all duration-300 py-4 px-6 md:px-12 flex justify-center md:justify-start items-center pointer-events-none">
+        <div class="pointer-events-auto">
+            <a href="#" class="text-2xl font-bold tracking-[0.2em] text-white text-shadow">XIDITO</a>
+        </div>
+    </header>
+
+    <!-- Contenedor del Slider Horizontal -->
+    <div id="slider" class="flex h-screen w-[400vw] transition-transform duration-1000 ease-in-out transform translate-x-0">
+        
+        <!-- SECCIÓN 1: HERO (Inicio) -->
+        <section class="relative h-screen w-screen flex-shrink-0 bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center" 
+                 style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop');">
+            <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
+            <div class="relative z-10 text-center px-4 -mt-16">
+                <h1 class="text-4xl md:text-5xl font-semibold tracking-wide text-white text-shadow mb-2">Ecosistema Xidito</h1>
+                <p class="text-base md:text-lg font-light text-gray-200 text-shadow">Creación, tecnología y comunidad</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: ESTUDIO XIDITO -->
+        <section class="relative h-screen w-screen flex-shrink-0 bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center" 
+                 style="background-image: url('https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop');">
+            <div class="absolute inset-0 bg-black/50 pointer-events-none"></div>
+            <div class="relative z-10 text-center px-4 -mt-16">
+                <h2 class="text-4xl md:text-5xl font-semibold tracking-wide text-white text-shadow mb-2">Estudio Xidito</h2>
+                <p class="text-base md:text-lg font-light text-gray-200 text-shadow mb-8">Diseño y creatividad visual</p>
+                <a href="https://asmodeuscorp.github.io/estudioxidito/" target="_blank" class="inline-block bg-white/90 hover:bg-white text-gray-900 font-medium text-sm py-3 px-8 rounded-sm backdrop-blur-md transition-all text-center uppercase tracking-wider">
+                    Visita su espacio aquí
+                </a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: XIDITO TECH -->
+        <section class="relative h-screen w-screen flex-shrink-0 bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center" 
+                 style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop');">
+            <div class="absolute inset-0 bg-black/50 pointer-events-none"></div>
+            <div class="relative z-10 text-center px-4 -mt-16">
+                <h2 class="text-4xl md:text-5xl font-semibold tracking-wide text-white text-shadow mb-2">Xidito Tech</h2>
+                <p class="text-base md:text-lg font-light text-gray-200 text-shadow mb-8">Innovación y desarrollo de software</p>
+                <a href="#" class="inline-block bg-white/90 hover:bg-white text-gray-900 font-medium text-sm py-3 px-8 rounded-sm backdrop-blur-md transition-all text-center uppercase tracking-wider">
+                    Visita su espacio aquí
+                </a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: GENTE QUE SUMA -->
+        <section class="relative h-screen w-screen flex-shrink-0 bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center" 
+                 style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop');">
+            <div class="absolute inset-0 bg-black/50 pointer-events-none"></div>
+            <div class="relative z-10 text-center px-4 -mt-16">
+                <h2 class="text-4xl md:text-5xl font-semibold tracking-wide text-white text-shadow mb-2">Gente que suma</h2>
+                <p class="text-base md:text-lg font-light text-gray-200 text-shadow mb-8">Nuestra comunidad e historias</p>
+                <a href="#" class="inline-block bg-white/90 hover:bg-white text-gray-900 font-medium text-sm py-3 px-8 rounded-sm backdrop-blur-md transition-all text-center uppercase tracking-wider">
+                    Visita su espacio aquí
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Barra de Navegación Inferior (Íconos) -->
+    <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
+        <div class="bg-black/40 backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex items-center gap-6 md:gap-8 shadow-2xl">
+            <!-- Icono: Inicio -->
+            <button onclick="goToSlide(0)" class="nav-btn text-white transition-all hover:scale-110 flex flex-col items-center gap-1" title="Inicio">
+                <i data-lucide="home" class="w-5 h-5"></i>
+                <span class="text-[10px] uppercase tracking-widest font-medium">Inicio</span>
+            </button>
+            <!-- Icono: Estudio -->
+            <button onclick="goToSlide(1)" class="nav-btn text-white/40 hover:text-white transition-all hover:scale-110 flex flex-col items-center gap-1" title="Estudio Xidito">
+                <i data-lucide="palette" class="w-5 h-5"></i>
+                <span class="text-[10px] uppercase tracking-widest font-medium">Estudio</span>
+            </button>
+            <!-- Icono: Tech -->
+            <button onclick="goToSlide(2)" class="nav-btn text-white/40 hover:text-white transition-all hover:scale-110 flex flex-col items-center gap-1" title="Xidito Tech">
+                <i data-lucide="code-2" class="w-5 h-5"></i>
+                <span class="text-[10px] uppercase tracking-widest font-medium">Tech</span>
+            </button>
+            <!-- Icono: Gente -->
+            <button onclick="goToSlide(3)" class="nav-btn text-white/40 hover:text-white transition-all hover:scale-110 flex flex-col items-center gap-1" title="Gente que suma">
+                <i data-lucide="users" class="w-5 h-5"></i>
+                <span class="text-[10px] uppercase tracking-widest font-medium">Gente</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Renderizar los íconos
+        lucide.createIcons();
+        
+        // --- Lógica del Slider ---
+        let currentSlide = 0;
+        const totalSlides = 4;
+        const slider = document.getElementById('slider');
+        const navBtns = document.querySelectorAll('.nav-btn');
+        let slideInterval;
+
+        // Función para actualizar la vista
+        function updateSlider() {
+            // Desplazar el contenedor horizontalmente
+            slider.style.transform = `translateX(-${currentSlide * 100}vw)`;
+            
+            // Actualizar la opacidad de los íconos (el activo se ve 100% blanco)
+            navBtns.forEach((btn, index) => {
+                if (index === currentSlide) {
+                    btn.classList.remove('text-white/40');
+                    btn.classList.add('text-white');
+                } else {
+                    btn.classList.remove('text-white');
+                    btn.classList.add('text-white/40');
+                }
+            });
+        }
+
+        // Navegación manual por clic en ícono
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+            resetInterval(); // Reiniciar el temporizador para que no cambie de golpe
+        }
+
+        // Avanzar al siguiente (con loop al inicio)
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        // Temporizador de rotación continua (cambia cada 4 segundos)
+        function startInterval() {
+            slideInterval = setInterval(nextSlide, 4000);
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            startInterval();
+        }
+
+        // Iniciar la rotación
+        startInterval();
+
+        // (Opcional) Pausar la rotación si el usuario pone el cursor sobre los botones principales
+        slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        slider.addEventListener('mouseleave', startInterval);
+
+    </script>
 </body>
 </html>
