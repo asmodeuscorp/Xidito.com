@@ -8,10 +8,10 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Inter (Tipografía limpia, moderna y geométrica tipo Tesla) -->
+    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -29,173 +29,133 @@
     </script>
 
     <style>
-        /* Ocultar la barra de scroll para un look más limpio */
-        ::-webkit-scrollbar {
-            display: none;
+        /* Animaciones para las texturas de fondo */
+        @keyframes panTexture {
+            0% { background-position: 0px 0px; }
+            100% { background-position: 150px 150px; }
         }
-        .no-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+        @keyframes panTextureReverse {
+            0% { background-position: 150px 150px; }
+            100% { background-position: 0px 0px; }
         }
-        
-        /* Sombra de texto suave para asegurar que se lea sobre cualquier fondo */
-        .text-shadow {
-            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        @keyframes panDots {
+            0% { background-position: 0px 0px; }
+            100% { background-position: 20px 20px; }
         }
 
-        /* Degradado en la parte inferior para que los botones destaquen */
-        .bottom-gradient {
-            background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%);
+        .texture-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.5;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Hub General: Patrón de puntos finos */
+        .bg-pattern-hub {
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23000000' fill-opacity='0.05'/%3E%3C/svg%3E");
+            background-size: 20px 20px;
+            animation: panDots 10s linear infinite;
+        }
+
+        /* Estudio: Patrón de destellos, trazos y círculos (Diseño) */
+        .bg-pattern-estudio {
+            background-image: url("data:image/svg+xml,%3Csvg width='150' height='150' viewBox='0 0 150 150' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23be123c' stroke-width='2' stroke-opacity='0.15' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M30 40 L40 20 L50 40 L70 50 L50 60 L40 80 L30 60 L10 50 Z'/%3E%3Ccircle cx='110' cy='30' r='12'/%3E%3Cpath d='M100 100 Q 120 80 140 120 T 100 140 Z'/%3E%3Cpath d='M20 120 L30 110 L40 130 Z'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 150px 150px;
+            animation: panTexture 18s linear infinite;
+        }
+
+        /* Tech: Patrón de código < />, nodos y conexiones (Tecnología) */
+        .bg-pattern-tech {
+            background-image: url("data:image/svg+xml,%3Csvg width='150' height='150' viewBox='0 0 150 150' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%231d4ed8' stroke-width='2' stroke-opacity='0.15' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M30 50 L15 75 L30 100 M120 50 L135 75 L120 100 M65 120 L85 30'/%3E%3Ccircle cx='40' cy='30' r='4'/%3E%3Ccircle cx='110' cy='120' r='4'/%3E%3Cpath d='M40 30 L110 120' stroke-dasharray='4 4'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 150px 150px;
+            animation: panTextureReverse 22s linear infinite;
+        }
+
+        /* Gente: Patrón de corazones, estrellas y personas (Comunidad) */
+        .bg-pattern-gente {
+            background-image: url("data:image/svg+xml,%3Csvg width='150' height='150' viewBox='0 0 150 150' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23047857' stroke-width='2' stroke-opacity='0.15' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M40 50 C 30 35 15 40 15 55 C 15 75 40 90 40 90 C 40 90 65 75 65 55 C 65 40 50 35 40 50 Z'/%3E%3Ccircle cx='110' cy='45' r='10'/%3E%3Cpath d='M95 75 C 95 65 125 65 125 75'/%3E%3Cpath d='M100 110 L110 95 L120 110 L135 115 L125 125 L130 140 L110 130 L90 140 L95 125 L85 115 Z'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 150px 150px;
+            animation: panTexture 25s linear infinite;
+        }
+
+        /* Hover aumenta la visibilidad del patrón de fondo */
+        .group:hover .texture-layer {
+            opacity: 1;
         }
     </style>
 </head>
 
-<body class="bg-black text-white font-sans antialiased h-screen w-full overflow-hidden relative">
+<body class="bg-white text-gray-900 font-sans antialiased md:h-screen w-full overflow-x-hidden md:overflow-hidden">
 
-    <!-- Header Fijo y Transparente -->
-    <header class="fixed top-0 w-full z-50 transition-all duration-300 py-4 px-6 md:px-12 flex justify-center md:justify-start items-center pointer-events-none">
-        <div class="pointer-events-auto">
-            <a href="#" class="text-2xl font-bold tracking-[0.2em] text-white text-shadow">XIDITO</a>
-        </div>
-    </header>
+    <!-- Cuadrícula Principal (1 columna en móviles, 2x2 en escritorio) -->
+    <main class="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 w-full h-full min-h-screen">
 
-    <!-- Contenedor del Slider Horizontal -->
-    <div id="slider" class="flex h-screen w-[400vw] transition-transform duration-1000 ease-in-out transform translate-x-0">
-        
-        <!-- SECCIÓN 1: HERO (Inicio) -->
-        <section class="relative h-screen w-screen flex-shrink-0 bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center" 
-                 style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop');">
-            <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
-            <div class="relative z-10 text-center px-4 -mt-16">
-                <h1 class="text-4xl md:text-5xl font-semibold tracking-wide text-white text-shadow mb-2">Ecosistema Xidito</h1>
-                <p class="text-base md:text-lg font-light text-gray-200 text-shadow">Creación, tecnología y comunidad</p>
+        <!-- APARTADO 1: Descripción del Hub -->
+        <section class="relative flex flex-col justify-center items-center p-8 md:p-16 text-center bg-[#fcfbfa] border-b md:border-b-0 md:border-r border-gray-200 min-h-[50vh] md:min-h-0">
+            <!-- Textura de fondo (Puntos sutiles) -->
+            <div class="texture-layer bg-pattern-hub"></div>
+            
+            <div class="relative z-10 max-w-md">
+                <h1 class="text-3xl md:text-4xl font-semibold tracking-[0.1em] text-gray-900 mb-2 uppercase">Xidito</h1>
+                <h2 class="text-lg text-gray-400 font-light mb-6 tracking-wide">Hub del Ecosistema</h2>
+                <div class="w-12 h-[1px] bg-gray-300 mx-auto mb-6"></div>
+                <p class="text-gray-500 font-light leading-relaxed">
+                    Un punto de encuentro centralizado para todos nuestros proyectos. Aquí es donde convergen la creatividad de nuestro estudio, el desarrollo tecnológico y las historias que construyen nuestra comunidad.
+                </p>
             </div>
         </section>
 
-        <!-- SECCIÓN 2: ESTUDIO XIDITO -->
-        <section class="relative h-screen w-screen flex-shrink-0 bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center" 
-                 style="background-image: url('https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop');">
-            <div class="absolute inset-0 bg-black/50 pointer-events-none"></div>
-            <div class="relative z-10 text-center px-4 -mt-16">
-                <h2 class="text-4xl md:text-5xl font-semibold tracking-wide text-white text-shadow mb-2">Estudio Xidito</h2>
-                <p class="text-base md:text-lg font-light text-gray-200 text-shadow mb-8">Diseño y creatividad visual</p>
-                <a href="https://asmodeuscorp.github.io/estudioxidito/" target="_blank" class="inline-block bg-white/90 hover:bg-white text-gray-900 font-medium text-sm py-3 px-8 rounded-sm backdrop-blur-md transition-all text-center uppercase tracking-wider">
+        <!-- APARTADO 2: Estudio Xidito -->
+        <section class="relative group overflow-hidden flex flex-col justify-center items-center p-8 text-center bg-gradient-to-br from-rose-100 to-rose-200 min-h-[50vh] md:min-h-0 border-b md:border-b-0">
+            <!-- Textura animada (Diseño) -->
+            <div class="texture-layer bg-pattern-estudio"></div>
+            
+            <div class="relative z-10 transform group-hover:-translate-y-2 transition-transform duration-500 flex flex-col items-center w-full max-w-sm">
+                <i data-lucide="palette" class="w-12 h-12 text-rose-600 mb-4 stroke-[1.5]"></i>
+                <h3 class="text-3xl font-semibold tracking-wide text-rose-950 mb-8">Estudio Xidito</h3>
+                
+                <a href="https://asmodeuscorp.github.io/estudioxidito/" target="_blank" class="w-full sm:w-auto border border-rose-400 text-rose-800 hover:bg-rose-800 hover:text-white hover:border-rose-800 font-medium text-xs py-3 px-8 rounded-sm transition-all uppercase tracking-wider bg-white/40 backdrop-blur-sm shadow-sm hover:shadow-md">
                     Visita su espacio aquí
                 </a>
             </div>
         </section>
 
-        <!-- SECCIÓN 3: XIDITO TECH -->
-        <section class="relative h-screen w-screen flex-shrink-0 bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center" 
-                 style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop');">
-            <div class="absolute inset-0 bg-black/50 pointer-events-none"></div>
-            <div class="relative z-10 text-center px-4 -mt-16">
-                <h2 class="text-4xl md:text-5xl font-semibold tracking-wide text-white text-shadow mb-2">Xidito Tech</h2>
-                <p class="text-base md:text-lg font-light text-gray-200 text-shadow mb-8">Innovación y desarrollo de software</p>
-                <a href="#" class="inline-block bg-white/90 hover:bg-white text-gray-900 font-medium text-sm py-3 px-8 rounded-sm backdrop-blur-md transition-all text-center uppercase tracking-wider">
+        <!-- APARTADO 3: Xidito Tech -->
+        <section class="relative group overflow-hidden flex flex-col justify-center items-center p-8 text-center bg-gradient-to-br from-blue-100 to-blue-200 min-h-[50vh] md:min-h-0 border-b md:border-b-0 md:border-r border-white/50">
+            <!-- Textura animada (Tech) -->
+            <div class="texture-layer bg-pattern-tech"></div>
+            
+            <div class="relative z-10 transform group-hover:-translate-y-2 transition-transform duration-500 flex flex-col items-center w-full max-w-sm">
+                <i data-lucide="code-2" class="w-12 h-12 text-blue-600 mb-4 stroke-[1.5]"></i>
+                <h3 class="text-3xl font-semibold tracking-wide text-blue-950 mb-8">Xidito Tech</h3>
+                
+                <a href="#" class="w-full sm:w-auto border border-blue-400 text-blue-800 hover:bg-blue-800 hover:text-white hover:border-blue-800 font-medium text-xs py-3 px-8 rounded-sm transition-all uppercase tracking-wider bg-white/40 backdrop-blur-sm shadow-sm hover:shadow-md">
                     Visita su espacio aquí
                 </a>
             </div>
         </section>
 
-        <!-- SECCIÓN 4: GENTE QUE SUMA -->
-        <section class="relative h-screen w-screen flex-shrink-0 bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center" 
-                 style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop');">
-            <div class="absolute inset-0 bg-black/50 pointer-events-none"></div>
-            <div class="relative z-10 text-center px-4 -mt-16">
-                <h2 class="text-4xl md:text-5xl font-semibold tracking-wide text-white text-shadow mb-2">Gente que suma</h2>
-                <p class="text-base md:text-lg font-light text-gray-200 text-shadow mb-8">Nuestra comunidad e historias</p>
-                <a href="#" class="inline-block bg-white/90 hover:bg-white text-gray-900 font-medium text-sm py-3 px-8 rounded-sm backdrop-blur-md transition-all text-center uppercase tracking-wider">
+        <!-- APARTADO 4: Gente que suma -->
+        <section class="relative group overflow-hidden flex flex-col justify-center items-center p-8 text-center bg-gradient-to-br from-emerald-100 to-emerald-200 min-h-[50vh] md:min-h-0">
+            <!-- Textura animada (Gente/Comunidad) -->
+            <div class="texture-layer bg-pattern-gente"></div>
+            
+            <div class="relative z-10 transform group-hover:-translate-y-2 transition-transform duration-500 flex flex-col items-center w-full max-w-sm">
+                <i data-lucide="users" class="w-12 h-12 text-emerald-600 mb-4 stroke-[1.5]"></i>
+                <h3 class="text-3xl font-semibold tracking-wide text-emerald-950 mb-8">Gente que suma</h3>
+                
+                <a href="#" class="w-full sm:w-auto border border-emerald-400 text-emerald-800 hover:bg-emerald-800 hover:text-white hover:border-emerald-800 font-medium text-xs py-3 px-8 rounded-sm transition-all uppercase tracking-wider bg-white/40 backdrop-blur-sm shadow-sm hover:shadow-md">
                     Visita su espacio aquí
                 </a>
             </div>
         </section>
-    </div>
 
-    <!-- Barra de Navegación Inferior (Íconos) -->
-    <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
-        <div class="bg-black/40 backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex items-center gap-6 md:gap-8 shadow-2xl">
-            <!-- Icono: Inicio -->
-            <button onclick="goToSlide(0)" class="nav-btn text-white transition-all hover:scale-110 flex flex-col items-center gap-1" title="Inicio">
-                <i data-lucide="home" class="w-5 h-5"></i>
-                <span class="text-[10px] uppercase tracking-widest font-medium">Inicio</span>
-            </button>
-            <!-- Icono: Estudio -->
-            <button onclick="goToSlide(1)" class="nav-btn text-white/40 hover:text-white transition-all hover:scale-110 flex flex-col items-center gap-1" title="Estudio Xidito">
-                <i data-lucide="palette" class="w-5 h-5"></i>
-                <span class="text-[10px] uppercase tracking-widest font-medium">Estudio</span>
-            </button>
-            <!-- Icono: Tech -->
-            <button onclick="goToSlide(2)" class="nav-btn text-white/40 hover:text-white transition-all hover:scale-110 flex flex-col items-center gap-1" title="Xidito Tech">
-                <i data-lucide="code-2" class="w-5 h-5"></i>
-                <span class="text-[10px] uppercase tracking-widest font-medium">Tech</span>
-            </button>
-            <!-- Icono: Gente -->
-            <button onclick="goToSlide(3)" class="nav-btn text-white/40 hover:text-white transition-all hover:scale-110 flex flex-col items-center gap-1" title="Gente que suma">
-                <i data-lucide="users" class="w-5 h-5"></i>
-                <span class="text-[10px] uppercase tracking-widest font-medium">Gente</span>
-            </button>
-        </div>
-    </div>
+    </main>
 
     <script>
-        // Renderizar los íconos
+        // Renderizar los íconos de Lucide
         lucide.createIcons();
-        
-        // --- Lógica del Slider ---
-        let currentSlide = 0;
-        const totalSlides = 4;
-        const slider = document.getElementById('slider');
-        const navBtns = document.querySelectorAll('.nav-btn');
-        let slideInterval;
-
-        // Función para actualizar la vista
-        function updateSlider() {
-            // Desplazar el contenedor horizontalmente
-            slider.style.transform = `translateX(-${currentSlide * 100}vw)`;
-            
-            // Actualizar la opacidad de los íconos (el activo se ve 100% blanco)
-            navBtns.forEach((btn, index) => {
-                if (index === currentSlide) {
-                    btn.classList.remove('text-white/40');
-                    btn.classList.add('text-white');
-                } else {
-                    btn.classList.remove('text-white');
-                    btn.classList.add('text-white/40');
-                }
-            });
-        }
-
-        // Navegación manual por clic en ícono
-        function goToSlide(index) {
-            currentSlide = index;
-            updateSlider();
-            resetInterval(); // Reiniciar el temporizador para que no cambie de golpe
-        }
-
-        // Avanzar al siguiente (con loop al inicio)
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateSlider();
-        }
-
-        // Temporizador de rotación continua (cambia cada 4 segundos)
-        function startInterval() {
-            slideInterval = setInterval(nextSlide, 4000);
-        }
-
-        function resetInterval() {
-            clearInterval(slideInterval);
-            startInterval();
-        }
-
-        // Iniciar la rotación
-        startInterval();
-
-        // (Opcional) Pausar la rotación si el usuario pone el cursor sobre los botones principales
-        slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
-        slider.addEventListener('mouseleave', startInterval);
-
     </script>
 </body>
 </html>
